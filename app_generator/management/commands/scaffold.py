@@ -142,7 +142,7 @@ def config_app(app_name, fields):
 
 class Command(BaseCommand):
     args = 'Arguments is not needed'
-    help = "Comando para automatização de criação de CRUD"
+    help = u'Comando para criação automatizada de apps\n Ex: python manage.py scaffold app_name name_field:type_field'
 
     def handle(self, *args, **options):
         if check_args(list(args)):

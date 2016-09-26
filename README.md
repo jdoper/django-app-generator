@@ -28,7 +28,7 @@ Your allowed to use more than a model field in your command.
 
 ### Model Fields Available
 
-* character - CharField
+* char - CharField
 * text - TextField
 * integer - IntegerField
 * float - FloatField

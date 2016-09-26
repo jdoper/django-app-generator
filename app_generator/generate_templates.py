@@ -29,7 +29,7 @@ def get_type_field(type_field):
     """
 
     types = {
-        "character": "models.CharField(max_length=250)",
+        "char": "models.CharField(max_length=250)",
         "text": "models.TextField()",
         "integer": "models.IntegerField()",
         "float": "models.FloatField()",
