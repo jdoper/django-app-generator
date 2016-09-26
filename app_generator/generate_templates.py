@@ -33,7 +33,7 @@ def get_type_field(type_field):
         "text": "models.TextField()",
         "integer": "models.IntegerField()",
         "float": "models.FloatField()",
-        "decimal": "models.DecimalField(max_digits=5, decimal_places=2)"
+        "decimal": "models.DecimalField(max_digits=5, decimal_places=2)",
         "boolean": "models.BooleanField()",
         "date": "models.DateField()",
         "datetime": "models.DateTimeField()",
