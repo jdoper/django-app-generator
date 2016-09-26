@@ -104,6 +104,16 @@ def check_args(args):
         return False
 
 
+def check_fields_errors(fields):
+    pattern = re.compile("^[a-zA-Z]+:[a-zA-Z]+")
+
+    for field in fields:
+        if not bool(pattern.match(field)):
+            return field
+
+    return None
+
+
 def config_app(app_name, fields):
     path = "%s/" % app_name
 
@@ -148,6 +158,10 @@ class Command(BaseCommand):
 
         if not app_name.isalpha():
             raise CommandError('app_name deve conter apenas letras (Ex: %s)' % process_arg(app_name))
+
+        check = check_fields_errors(fields)
+        if check:
+            raise CommandError(u'"%s" não está no formato name_field:type_field' % check)
 
         if check_args(list(args)):
             print "App criado com sucesso!\n"
