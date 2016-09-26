@@ -132,7 +132,7 @@ def get_content_views(app_name):
     :type app_name: str
     """
 
-    return render_to_string('scaffolder/python/views.txt', {'app': app_name})
+    return render_to_string('app-generator/python/views.txt', {'app': app_name})
 
 
 def get_content_urls(app_name):
@@ -143,7 +143,7 @@ def get_content_urls(app_name):
     :type app_name: str
     """
 
-    return render_to_string('scaffolder/python/urls.txt', {'app': app_name})
+    return render_to_string('app-generator/python/urls.txt', {'app': app_name})
 
 
 def get_content_models(app_name, fields):
@@ -162,7 +162,7 @@ def get_content_models(app_name, fields):
     for field in fields:
         fields_template += get_field_models(field[0], field[1])
 
-    return render_to_string('scaffolder/python/models.txt', {'app': app_name,
+    return render_to_string('app-generator/python/models.txt', {'app': app_name,
                                                             'fields': fields_template})
 
 
@@ -177,7 +177,7 @@ def get_content_forms(app_name, fields):
     :type fields: list
     """
 
-    return render_to_string('scaffolder/python/forms.txt', {'app': app_name,
+    return render_to_string('app-generator/python/forms.txt', {'app': app_name,
                                                             'fields': fields})
 
 
@@ -189,7 +189,7 @@ def get_content_admin(app_name):
     :type app_name: str
     """
 
-    return render_to_string('scaffolder/python/admin.txt', {'app': app_name})
+    return render_to_string('app-generator/python/admin.txt', {'app': app_name})
 
 
 ###################################
@@ -204,7 +204,7 @@ def get_content_base():
     base_params = {}
     params = get_params(base_params)
 
-    return render_to_string('scaffolder/html/base.txt', params)
+    return render_to_string('app-generator/html/base.txt', params)
 
 
 def get_content_new(app_name):
@@ -221,7 +221,7 @@ def get_content_new(app_name):
                 'form': FORM}
     params = get_params(new_parms)
 
-    return render_to_string('scaffolder/html/new.txt', params)
+    return render_to_string('app-generator/html/new.txt', params)
 
 
 def get_content_edit(app_name):
@@ -238,7 +238,7 @@ def get_content_edit(app_name):
                     'form': FORM}
     params = get_params(edit_params)
 
-    return render_to_string('scaffolder/html/edit.txt', params)
+    return render_to_string('app-generator/html/edit.txt', params)
 
 
 def get_content_show(app_name, fields):
@@ -261,7 +261,7 @@ def get_content_show(app_name, fields):
                     'fields': fields}
     params = get_params(show_params)
 
-    return render_to_string('scaffolder/html/show.txt', params)
+    return render_to_string('app-generator/html/show.txt', params)
 
 
 def get_content_list(app_name, fields):
@@ -287,4 +287,4 @@ def get_content_list(app_name, fields):
                     'endfor_tag': ENDFOR}
     params = get_params(list_params)
 
-    return render_to_string('scaffolder/html/list.txt', params)
+    return render_to_string('app-generator/html/list.txt', params)

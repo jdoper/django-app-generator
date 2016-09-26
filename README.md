@@ -9,13 +9,21 @@ Package for generate apps in Django projects
 $ pip install git+https://github.com/jdoper/django-app-generator.git@master
 ```
 
+Add 'app_generator' to your INSTALLED_APPS setting.
+```sh
+INSTALLED_APPS = (
+    ...
+    'app_generator',
+)
+```
+
 
 ### Usage
 
 ```sh
 $ python manage.py scaffold app_name name_field:type_field
 ```
-***OBS:*** Your allowed to use more than a model field in your command.
+Your allowed to use more than a model field in your command.
 
 
 ### Model Fields Available
@@ -33,9 +41,6 @@ $ python manage.py scaffold app_name name_field:type_field
 
 
 ### Changelog
-
-***0.2***
-* Adding support to SlugField and URLField.
 
 ***0.1***
 * Initial release.

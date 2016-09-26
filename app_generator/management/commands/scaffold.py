@@ -4,7 +4,7 @@ import os, shutil
 from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
 
-from scaffolder.generate_templates import *
+from app_generator.generate_templates import *
 
 
 # Auxiliares #
