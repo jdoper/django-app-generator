@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, shutil
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.template.loader import render_to_string
 
 from app_generator.generate_templates import *
@@ -142,9 +142,16 @@ def config_app(app_name, fields):
 
 class Command(BaseCommand):
     args = 'Arguments is not needed'
-    help = u'Comando para criação automatizada de apps\n Ex: python manage.py scaffold app_name name_field:type_field'
+    help = u'Comando para criação automatizada de apps (Ex: python manage.py scaffold app_name name_field:type_field)'
+
+    def add_arguments(self, parser):
+        parser.add_argument('app_name', nargs='?', type=str)
+        parser.add_argument('fields', nargs='+', type=str)
 
     def handle(self, *args, **options):
+        app_name = options.get('app_name', None)
+        fields = options.get('fields', None)
+
         if check_args(list(args)):
             print "App criado com sucesso!\n"
 
