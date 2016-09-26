@@ -1,0 +1,25 @@
+{{ load_base }}
+{{ load_static }}
+
+<!-- Use o bloco para adicionar folhas de estilo -->
+{{ styles }}
+{{ endblock }}
+
+<!-- Aqui fica o conteúdo da página -->
+{{ content }}
+  <form method="post">
+    {{ token.strip }}
+    {{ form }}
+
+    <button type="submit">Editar</button>
+  </form>
+
+  <a href="/{{ app }}/">Voltar</a>
+{{ endblock }}
+
+<!-- Use o bloco para adicionar arquivos e bibliotecas JavaScript -->
+{{ scripts }}
+<script type="text/javascript">
+  /* Adicione código aqui */
+</script>
+{{ endblock }}

@@ -1,0 +1,41 @@
+{{ load_base }}
+{{ load_static }}
+
+<!-- Use o bloco para adicionar folhas de estilo -->
+{{ styles }}
+{{ endblock }}
+
+<!-- Aqui fica o conteúdo da página -->
+{{ content }}
+  <a href="/{{ app }}/new">Novo {{ app|title }}</a>
+
+  <table>
+    <tr>{% for field in fields %}
+      <th>{{ field.0|title }}</th>{% endfor %}
+      <th colspan="3">Acoes</th>
+    </tr>
+
+    {{ for_tag }}
+      <tr>{% for field in fields %}
+        <td>{{ field.1 }}</td>{% endfor %}
+        <td>
+          <a href="/{{ app }}/show/{{ id }}">Mostrar</a>
+          <a href="/{{ app }}/delete/{{ id }}">Excluir</a>
+        </td>
+      </tr>
+    {{ empty_tag }}
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    {{ endfor_tag }}
+  </table>
+{{ endblock }}
+
+<!-- Use o bloco para adicionar arquivos e bibliotecas JavaScript -->
+{{ scripts }}
+<script type="text/javascript">
+  /* Adicione código aqui */
+</script>
+{{ endblock }}

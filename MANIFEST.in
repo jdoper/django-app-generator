@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include django-app-generator/templates *
+recursive-include django-app-generator/management *

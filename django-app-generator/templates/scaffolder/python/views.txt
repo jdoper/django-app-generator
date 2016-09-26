@@ -1,0 +1,48 @@
+# -*- coding: utf-8 -*-
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from {{ app }}.models import *
+from {{ app }}.forms import *
+
+# Create your views here.
+
+def list(request):
+    {{ app }}s = {{ app|title }}.objects.all()
+    return render(request, "{{ app }}/listar.html", {"{{ app }}s": {{ app }}s})
+
+
+def new(request):
+    form = {{ app|title }}Form()
+
+    if request.method == "POST":
+        form = {{ app|title }}Form(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/{{ app }}/")
+
+    return render(request, "{{ app }}/novo.html", {"form": form})
+
+
+def show(request, id):
+    {{ app }} = {{ app|title }}.objects.get(pk=id)
+    return render(request, "{{ app }}/mostrar.html", {"{{ app }}": {{ app }}})
+
+
+def edit(request, id):
+    {{ app }} = {{ app|title }}.objects.get(pk=id)
+    form = {{ app|title }}Form(instance={{ app }})
+
+    if request.method == "POST":
+        form = {{ app|title }}Form(request.POST or None, instance={{ app }})
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/{{ app }}/")
+
+    return render(request, "{{ app }}/editar.html", {"form": form})
+
+
+def delete(request, id):
+    {{ app|title }}.objects.get(pk=id).delete()
+    return HttpResponseRedirect("/{{ app }}/")

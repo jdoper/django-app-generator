@@ -1,0 +1,10 @@
+from django.conf.urls import include, url
+from {{ app }}.views import *
+
+urlpatterns = (
+    url(r"^$", list, name=""),
+    url(r"^show/(?P<id>\w+)$", show, name=""),
+    url(r"^new/$", new, name=""),
+    url(r"^edit/(?P<id>\w+)$", edit, name=""),
+    url(r"^delete/(?P<id>\w+)$", delete, name=""),
+)
