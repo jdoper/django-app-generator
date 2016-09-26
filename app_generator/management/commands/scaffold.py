@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, shutil
+import os, shutil, re
 
 from django.core.management.base import BaseCommand, CommandError
 from django.template.loader import render_to_string
@@ -9,13 +9,7 @@ from app_generator.generate_templates import *
 
 # Auxiliares #
 def process_arg(arg):
-    return arg.replace(';', '').replace(',', '').replace('.', '')\
-                .replace('#', '').replace('*', '').replace('!', '')\
-                .replace('@', '').replace('$', '').replace('%', '')\
-                .replace('&', '').replace('(', '').replace(')', '')\
-                .replace('{', '').replace('}', '').replace('[', '')\
-                .replace(']', '').replace('<', '').replace('>', '')\
-                .replace('/', '').replace('?', '').replace('~', '')
+    return "".join(re.split("[^a-zA-Z]*", arg))
 
 
 # Geradores de arquivos #
@@ -142,7 +136,7 @@ def config_app(app_name, fields):
 
 class Command(BaseCommand):
     args = 'Arguments is not needed'
-    help = u'Comando para criação automatizada de apps (Ex: python manage.py scaffold app_name name_field:type_field)'
+    help = u'Custom command for generate apps'
 
     def add_arguments(self, parser):
         parser.add_argument('app_name', nargs='?', type=str)
@@ -151,6 +145,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         app_name = options.get('app_name', None)
         fields = options.get('fields', None)
+
+        if not app_name.isalpha():
+            raise CommandError('app_name deve conter apenas letras (Ex: %s)' % process_arg(app_name))
 
         if check_args(list(args)):
             print "App criado com sucesso!\n"
