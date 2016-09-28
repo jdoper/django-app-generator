@@ -3,7 +3,8 @@ import os, shutil, re
 
 from django.core.management.base import BaseCommand, CommandError
 
-from app_generator.generate_templates import *
+from app_generator.generate_content import *
+from app_generator.generate_files import *
 
 
 # Auxiliares #
@@ -12,23 +13,6 @@ def process_arg(arg):
 
 
 # Geradores de arquivos #
-def create_app(app_name):
-    command = "python manage.py startapp %s" % app_name
-    os.system(command)
-
-
-def create_folder(app_name, name_folder):
-    os.makedirs("%s/%s" % (app_name, name_folder))
-
-
-def create_file(file_path, name_file, template):
-    if os.path.exists(file_path):
-        temp_file = "%s%s" % (file_path, name_file)
-        with open(temp_file, 'w+') as python_file:
-            python_file.write(template.encode('utf-8'))
-            python_file.close()
-
-
 def create_python_file(app_name, name_file, fields):
     template = get_content_python(app_name, name_file, fields)
     file_path = "%s/" % (app_name)
@@ -148,19 +132,26 @@ class Command(BaseCommand):
     help = u'Custom command for generate apps'
 
     def add_arguments(self, parser):
-        parser.add_argument('app_name', nargs='?', type=str)
-        parser.add_argument('fields', nargs='+', type=str)
+        parser.add_argument('app_name', nargs='*', type=str)
+        parser.add_argument('fields', nargs='*', type=str)
 
     def handle(self, *args, **options):
         app_name = options.get('app_name', None)
         fields = options.get('fields', None)
 
-        if not app_name.isalpha():
+        if not app_name:
+            raise CommandError('defina um nome para seu app')
+        elif not app_name[0].isalpha():
             raise CommandError('app_name deve conter apenas letras (Ex: %s)' % process_arg(app_name))
+        elif not fields:
+            raise CommandError(u'não foram definidos campos para seu app')
+        else:
+            check = check_fields_errors(fields)
 
-        check = check_fields_errors(fields)
-        if check:
-            raise CommandError(u'"%s" não está no formato name_field:type_field' % check)
+            if check:
+                raise CommandError(u'"%s" não está no formato name_field:type_field' % check)
+            else:
+                print "OK pode começar a putaria"
 
         if check_args(list(args)):
             print "App criado com sucesso!\n"
