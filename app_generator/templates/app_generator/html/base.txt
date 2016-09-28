@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 {{ load_static }}
 
-<html lang="pt">
+<html>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Aqui deve ficar o título da página -->
     <title>{% block title_page %}{% endblock %}</title>
 
-    <!-- Use o bloco para adicionar folhas de estilo -->
     <!-- <link rel="stylesheet" href="style.css"> -->
     {{ styles }}{{ endblock }}
   </head>
 
   <body>
-    <!-- Aqui fica o conteúdo da página -->
     <section>
       {{ content }}{{ endblock }}
     </section>
 
-    <!-- Use o bloco para adicionar arquivos e bibliotecas JavaScript -->
     <!-- <script src="scripts.js"></script> -->
     {{ scripts }}{{ endblock }}
   </body>

@@ -1,25 +1,22 @@
 {{ load_base }}
 {{ load_static }}
 
-<!-- Use o bloco para adicionar folhas de estilo -->
 {{ styles }}
 {{ endblock }}
 
-<!-- Aqui fica o conteúdo da página -->
 {{ content }}
   <form method="post">
     {{ token.strip }}
     {{ form }}
 
-    <button type="submit">Editar</button>
+    <button type="submit">Edit</button>
   </form>
 
-  <a href="/{{ app }}/">Voltar</a>
+  <a href="/{{ app }}/">Back</a>
 {{ endblock }}
 
-<!-- Use o bloco para adicionar arquivos e bibliotecas JavaScript -->
 {{ scripts }}
-<script type="text/javascript">
-  /* Adicione código aqui */
-</script>
+  <script type="text/javascript">
+    /* Code */
+  </script>
 {{ endblock }}

@@ -3,5 +3,4 @@ from {{ app }}.models import *
 
 # Register your models here.
 
-# Descomente a linha abaixo para modificar o modelo pela interface do Admin
 # admin.site.register({{ app|title }})
