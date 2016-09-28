@@ -2,7 +2,6 @@
 import os, shutil, re
 
 from django.core.management.base import BaseCommand, CommandError
-from django.template.loader import render_to_string
 
 from app_generator.generate_templates import *
 
@@ -105,7 +104,7 @@ def check_args(args):
 
 
 def check_fields_errors(fields):
-    pattern = re.compile("^[a-zA-Z]+:[a-zA-Z]+")
+    pattern = re.compile("^[a-z_]+:[a-z]+")
 
     for field in fields:
         if not bool(pattern.match(field)):
