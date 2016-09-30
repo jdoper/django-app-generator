@@ -87,16 +87,6 @@ def check_args(args):
         return False
 
 
-def check_fields_errors(fields):
-    pattern = re.compile("^[a-z_]+:[a-z]+")
-
-    for field in fields:
-        if not bool(pattern.match(field)):
-            return field
-
-    return None
-
-
 def config_app(app_name, fields):
     path = "%s/" % app_name
 
@@ -127,6 +117,22 @@ def config_app(app_name, fields):
     return True
 
 
+def check_args_errors(app_name, fields):
+    pattern_app_name = re.compile("^[a-z_]+")
+    pattern_field = re.compile("^[a-z_]+:[a-z]+")
+
+    if not app_name or not isinstance(app_name[0], str) or not bool(pattern_app_name.match(app_name[0])):
+        raise CommandError(u'verifique o nome do seu app, ele deve conter apenas letras e underlines')
+    elif not fields:
+        raise CommandError(u'não foram definidos campos para seu app')
+
+    for field in fields:
+        if not bool(pattern.match(field)):
+            raise CommandError(u'"%s" não está no formato name_field:type_field' % check)
+
+    print "OK, pode começar a putaria"
+
+
 class Command(BaseCommand):
     args = 'Arguments is not needed'
     help = u'Custom command for generate apps'
@@ -138,20 +144,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         app_name = options.get('app_name', None)
         fields = options.get('fields', None)
-
-        if not app_name:
-            raise CommandError('defina um nome para seu app')
-        elif not app_name[0].isalpha():
-            raise CommandError('app_name deve conter apenas letras (Ex: %s)' % process_arg(app_name))
-        elif not fields:
-            raise CommandError(u'não foram definidos campos para seu app')
-        else:
-            check = check_fields_errors(fields)
-
-            if check:
-                raise CommandError(u'"%s" não está no formato name_field:type_field' % check)
-            else:
-                print "OK pode começar a putaria"
+        check_args_errors(app_name, fields)
 
         if check_args(list(args)):
             print "App criado com sucesso!\n"
