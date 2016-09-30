@@ -127,10 +127,23 @@ def check_args_errors(app_name, fields):
         raise CommandError(u'não foram definidos campos para seu app')
 
     for field in fields:
-        if not bool(pattern.match(field)):
+        if not bool(pattern_field.match(field)):
             raise CommandError(u'"%s" não está no formato name_field:type_field' % check)
 
-    print "OK, pode começar a putaria"
+
+def check_existing_app(app_name):
+    path = "%s/" % app_name
+
+    if os.path.exists(path):
+        decision = raw_input("Existe outro app com o mesmo nome, deseja exclui-lo? (S/n) ")
+
+        while decision not in ('S', 's', 'N', 'n'):
+            decision = raw_input("Valor inválido, escolha (S/n) ")
+
+        if decision in ('N', 'n'):
+            raise CommandError(u'outro app no sistema possui o mesmo nome')
+        else:
+            shutil.rmtree(path)
 
 
 class Command(BaseCommand):
@@ -138,13 +151,15 @@ class Command(BaseCommand):
     help = u'Custom command for generate apps'
 
     def add_arguments(self, parser):
-        parser.add_argument('app_name', nargs='*', type=str)
+        parser.add_argument('app_name', nargs='?', type=str)
         parser.add_argument('fields', nargs='*', type=str)
 
     def handle(self, *args, **options):
         app_name = options.get('app_name', None)
         fields = options.get('fields', None)
+
         check_args_errors(app_name, fields)
+        check_existing_app(app_name)
 
         if check_args(list(args)):
             print "App criado com sucesso!\n"
