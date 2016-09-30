@@ -6,9 +6,9 @@ from {{ app }}.forms import *
 
 # Create your views here.
 
-def list(request):
+def list_objects(request):
     {{ app }}s = {{ app|title }}.objects.all()
-    return render(request, "{{ app }}/listar.html", {"{{ app }}s": {{ app }}s})
+    return render(request, "{{ app }}/list.html", {"{{ app }}s": {{ app }}s})
 
 
 def new(request):
@@ -21,12 +21,12 @@ def new(request):
             form.save()
             return HttpResponseRedirect("/{{ app }}/")
 
-    return render(request, "{{ app }}/novo.html", {"form": form})
+    return render(request, "{{ app }}/new.html", {"form": form})
 
 
 def show(request, id):
     {{ app }} = {{ app|title }}.objects.get(pk=id)
-    return render(request, "{{ app }}/mostrar.html", {"{{ app }}": {{ app }}})
+    return render(request, "{{ app }}/show.html", {"{{ app }}": {{ app }}})
 
 
 def edit(request, id):
@@ -40,7 +40,7 @@ def edit(request, id):
             form.save()
             return HttpResponseRedirect("/{{ app }}/")
 
-    return render(request, "{{ app }}/editar.html", {"form": form})
+    return render(request, "{{ app }}/edit.html", {"form": form})
 
 
 def delete(request, id):

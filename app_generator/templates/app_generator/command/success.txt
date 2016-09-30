@@ -1,0 +1,11 @@
+Adicione o app em seu settings.py
+  INSTALLED_APPS = (
+    ...
+    '{{ app }}',
+  )
+
+Adicione as urls do app em seu urls.py principal
+  from django.conf.urls import include
+
+  url(r'^{{ app }}/', include('{{ app }}.urls')),
+  

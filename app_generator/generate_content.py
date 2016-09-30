@@ -288,3 +288,16 @@ def get_content_list(app_name, fields):
     params = get_params(list_params)
 
     return render_to_string('app_generator/html/list.txt', params)
+
+
+def get_content_success(app_name):
+    """
+    Retorna a mensagem de sucesso em caso de execução bem sucedida
+
+    :param app_name: Nome do app que está sendo criado
+    :type app_name: str
+    """
+
+    params = {'app': app_name}
+
+    return render_to_string('app_generator/command/success.txt', params)
