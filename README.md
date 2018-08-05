@@ -1,4 +1,4 @@
-#django-app-generator
+# django-app-generator
 
 Package for generate apps in Django projects
 
